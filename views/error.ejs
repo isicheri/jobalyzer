@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= status || 500 %> - <%= name || "Server Error" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      padding: 3rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .stack {
+      font-family: monospace;
+      background-color: #f1f1f1;
+      padding: 1rem;
+      text-align: left;
+      margin: 2rem auto;
+      max-width: 800px;
+      overflow-x: auto;
+      border-radius: 5px;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1><%= status || 500 %> - <%= name || "Server Error" %></h1>
+  <p><%= message || "Something went wrong." %></p>
+
+  <% if (stack) { %>
+    <div class="stack">
+      <h2>Stack Trace:</h2>
+      <pre><%= stack %></pre>
+    </div>
+  <% } %>
+
+  <a href="/">← Go back home</a>
+</body>
+</html>
