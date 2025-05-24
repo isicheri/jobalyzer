@@ -44,6 +44,7 @@ App.use(session({
   }
 }));
 App.use(csurf())
+App.use(passport.initialize())
 App.use(passport.authenticate("session"))
 App.use((req,res,next) => {
   res.locals.csrfToken = req.csrfToken()

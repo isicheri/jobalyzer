@@ -1,5 +1,5 @@
 import { Router,Request,Response,NextFunction } from "express";
-import passport from "passport";
+import passport, { use } from "passport";
 import prismaClient from "../../utils/prismaClient/prisma.clent";
 import GithubStrategy from "passport-github";
 const authRouter = Router();
@@ -35,10 +35,10 @@ passport.use(new GithubStrategy({
     } catch (error) {
         done(error,false)
     }
-}))
+})) 
 
-passport.serializeUser((user:any,done) => {
-    done(null,{id: user.id,username: user.username})
+passport.serializeUser((user,done) => {
+    done(null,user);
 })
 
 passport.deserializeUser((user:any,done) => {
