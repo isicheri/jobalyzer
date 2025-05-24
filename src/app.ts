@@ -16,7 +16,8 @@ const PgSession = pgSimple(session);
 dotenv.config({path: ".env"});
 
 const pgPool = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
+  ssl: false
 })
 
 App.use(helmet());
@@ -43,8 +44,7 @@ App.use(session({
   }
 }));
 App.use(csurf())
-App.use(passport.initialize())
-App.use(passport.session())
+App.use(passport.authenticate("session"))
 App.use((req,res,next) => {
   res.locals.csrfToken = req.csrfToken()
   next()

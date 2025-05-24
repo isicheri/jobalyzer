@@ -37,12 +37,12 @@ passport.use(new GithubStrategy({
     }
 }))
 
-passport.serializeUser((user,done) => {
-    return done(null,user)
+passport.serializeUser((user:any,done) => {
+    done(null,{id: user.id,username: user.username})
 })
 
 passport.deserializeUser((user:any,done) => {
-    return done(null,user)
+    done(null,user)
 })
 
 authRouter.get("/github",passport.authenticate("github"))
@@ -52,6 +52,7 @@ authRouter.get("/github/callback",
     }),
     (req,res)=> {
         //redirect the user
+        res.redirect("/user/home")
     }
 )
 authRouter.post("/logout",(req:Request,res:Response,next:NextFunction) => {
