@@ -2,6 +2,7 @@ import { Router,Request,Response,NextFunction } from "express";
 import passport, { use } from "passport";
 import prismaClient from "../../utils/prismaClient/prisma.clent";
 import GithubStrategy from "passport-github";
+import { User } from "../../config/generated/prisma";
 const authRouter = Router();
 
 passport.use(new GithubStrategy({
@@ -41,14 +42,13 @@ passport.serializeUser((user,done) => {
     done(null,user);
 })
 
-passport.deserializeUser((user:any,done) => {
+passport.deserializeUser((user:User,done) => {
     done(null,user)
 })
 
 authRouter.get("/github",passport.authenticate("github"))
 authRouter.get("/github/callback",
-    passport.authenticate("github",{ failureRedirect: "/",
-        session: false
+    passport.authenticate("github",{ failureRedirect: "/"
     }),
     (req,res)=> {
         //redirect the user
