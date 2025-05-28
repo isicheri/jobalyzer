@@ -20,7 +20,18 @@ const pgPool = new Pool({
   ssl: false
 })
 
-App.use(helmet());
+App.use(helmet.contentSecurityPolicy({
+   directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", 'https:', "'unsafe-inline'"], // allow Google Fonts etc.
+      imgSrc: ["'self'", 'data:', 'https://avatars.githubusercontent.com'],
+      connectSrc: ["'self'"],
+      fontSrc: ["'self'", 'https:', 'data:'],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+}));
 App.use(limiter);
 App.use(cookieParser());
 App.use(express.json())
