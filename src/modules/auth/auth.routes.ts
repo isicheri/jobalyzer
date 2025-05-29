@@ -58,7 +58,11 @@ authRouter.get("/github/callback",
 authRouter.post("/logout",(req:Request,res:Response,next:NextFunction) => {
     req.logout((err) => {
         if(err) next(err);
-        res.redirect("/");
+        req.session.destroy((err) => {
+            if(err) return next(err);
+            res.clearCookie("connect.sid");
+            res.redirect("/")
+        });
     })
 })
 

@@ -54,7 +54,7 @@ App.use(session({
     secure: process.env.NODE_ENV === 'production',
   }
 }));
-App.use(csurf())
+App.use(csurf({cookie: true}))
 App.use(passport.initialize())
 App.use(passport.session())
 App.use((req,res,next) => {
