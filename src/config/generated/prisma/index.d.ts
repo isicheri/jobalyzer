@@ -18,6 +18,29 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Description
+ * 
+ */
+export type Description = $Result.DefaultSelection<Prisma.$DescriptionPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const SeniorityLevel: {
+  SENIOR: 'SENIOR',
+  MID: 'MID',
+  JUNIOR: 'JUNIOR'
+};
+
+export type SeniorityLevel = (typeof SeniorityLevel)[keyof typeof SeniorityLevel]
+
+}
+
+export type SeniorityLevel = $Enums.SeniorityLevel
+
+export const SeniorityLevel: typeof $Enums.SeniorityLevel
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +176,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.description`: Exposes CRUD operations for the **Description** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Descriptions
+    * const descriptions = await prisma.description.findMany()
+    * ```
+    */
+  get description(): Prisma.DescriptionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +626,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    Description: 'Description'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +646,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "description"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +721,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Description: {
+        payload: Prisma.$DescriptionPayload<ExtArgs>
+        fields: Prisma.DescriptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DescriptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DescriptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>
+          }
+          findFirst: {
+            args: Prisma.DescriptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DescriptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>
+          }
+          findMany: {
+            args: Prisma.DescriptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>[]
+          }
+          create: {
+            args: Prisma.DescriptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>
+          }
+          createMany: {
+            args: Prisma.DescriptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DescriptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>[]
+          }
+          delete: {
+            args: Prisma.DescriptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>
+          }
+          update: {
+            args: Prisma.DescriptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.DescriptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DescriptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DescriptionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>[]
+          }
+          upsert: {
+            args: Prisma.DescriptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DescriptionPayload>
+          }
+          aggregate: {
+            args: Prisma.DescriptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDescription>
+          }
+          groupBy: {
+            args: Prisma.DescriptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DescriptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DescriptionCountArgs<ExtArgs>
+            result: $Utils.Optional<DescriptionCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +883,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    description?: DescriptionOmit
   }
 
   /* Types for Logging */
@@ -863,6 +972,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    description: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    description?: boolean | UserCountOutputTypeCountDescriptionArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDescriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DescriptionWhereInput
+  }
 
 
   /**
@@ -1057,6 +1196,8 @@ export namespace Prisma {
     accessToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    description?: boolean | User$descriptionArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1093,10 +1234,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "githubId" | "username" | "email" | "avatarUrl" | "accessToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    description?: boolean | User$descriptionArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      description: Prisma.$DescriptionPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       githubId: string
@@ -1500,6 +1649,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    description<T extends User$descriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$descriptionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1554,6 +1704,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1572,6 +1726,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1589,6 +1747,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1638,6 +1800,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1686,6 +1852,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1728,6 +1898,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1776,6 +1950,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1843,6 +2021,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1869,6 +2051,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -1889,6 +2075,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.description
+   */
+  export type User$descriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    where?: DescriptionWhereInput
+    orderBy?: DescriptionOrderByWithRelationInput | DescriptionOrderByWithRelationInput[]
+    cursor?: DescriptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DescriptionScalarFieldEnum | DescriptionScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1900,6 +2110,1120 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Description
+   */
+
+  export type AggregateDescription = {
+    _count: DescriptionCountAggregateOutputType | null
+    _avg: DescriptionAvgAggregateOutputType | null
+    _sum: DescriptionSumAggregateOutputType | null
+    _min: DescriptionMinAggregateOutputType | null
+    _max: DescriptionMaxAggregateOutputType | null
+  }
+
+  export type DescriptionAvgAggregateOutputType = {
+    experience: number | null
+  }
+
+  export type DescriptionSumAggregateOutputType = {
+    experience: number | null
+  }
+
+  export type DescriptionMinAggregateOutputType = {
+    id: string | null
+    companyname: string | null
+    seniority: $Enums.SeniorityLevel | null
+    experience: number | null
+    githubId: string | null
+  }
+
+  export type DescriptionMaxAggregateOutputType = {
+    id: string | null
+    companyname: string | null
+    seniority: $Enums.SeniorityLevel | null
+    experience: number | null
+    githubId: string | null
+  }
+
+  export type DescriptionCountAggregateOutputType = {
+    id: number
+    companyname: number
+    seniority: number
+    experience: number
+    skills: number
+    optionalskills: number
+    githubId: number
+    _all: number
+  }
+
+
+  export type DescriptionAvgAggregateInputType = {
+    experience?: true
+  }
+
+  export type DescriptionSumAggregateInputType = {
+    experience?: true
+  }
+
+  export type DescriptionMinAggregateInputType = {
+    id?: true
+    companyname?: true
+    seniority?: true
+    experience?: true
+    githubId?: true
+  }
+
+  export type DescriptionMaxAggregateInputType = {
+    id?: true
+    companyname?: true
+    seniority?: true
+    experience?: true
+    githubId?: true
+  }
+
+  export type DescriptionCountAggregateInputType = {
+    id?: true
+    companyname?: true
+    seniority?: true
+    experience?: true
+    skills?: true
+    optionalskills?: true
+    githubId?: true
+    _all?: true
+  }
+
+  export type DescriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Description to aggregate.
+     */
+    where?: DescriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Descriptions to fetch.
+     */
+    orderBy?: DescriptionOrderByWithRelationInput | DescriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DescriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Descriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Descriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Descriptions
+    **/
+    _count?: true | DescriptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DescriptionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DescriptionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DescriptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DescriptionMaxAggregateInputType
+  }
+
+  export type GetDescriptionAggregateType<T extends DescriptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateDescription]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDescription[P]>
+      : GetScalarType<T[P], AggregateDescription[P]>
+  }
+
+
+
+
+  export type DescriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DescriptionWhereInput
+    orderBy?: DescriptionOrderByWithAggregationInput | DescriptionOrderByWithAggregationInput[]
+    by: DescriptionScalarFieldEnum[] | DescriptionScalarFieldEnum
+    having?: DescriptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DescriptionCountAggregateInputType | true
+    _avg?: DescriptionAvgAggregateInputType
+    _sum?: DescriptionSumAggregateInputType
+    _min?: DescriptionMinAggregateInputType
+    _max?: DescriptionMaxAggregateInputType
+  }
+
+  export type DescriptionGroupByOutputType = {
+    id: string
+    companyname: string
+    seniority: $Enums.SeniorityLevel
+    experience: number
+    skills: string[]
+    optionalskills: string[]
+    githubId: string
+    _count: DescriptionCountAggregateOutputType | null
+    _avg: DescriptionAvgAggregateOutputType | null
+    _sum: DescriptionSumAggregateOutputType | null
+    _min: DescriptionMinAggregateOutputType | null
+    _max: DescriptionMaxAggregateOutputType | null
+  }
+
+  type GetDescriptionGroupByPayload<T extends DescriptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DescriptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DescriptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DescriptionGroupByOutputType[P]>
+            : GetScalarType<T[P], DescriptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DescriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyname?: boolean
+    seniority?: boolean
+    experience?: boolean
+    skills?: boolean
+    optionalskills?: boolean
+    githubId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["description"]>
+
+  export type DescriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyname?: boolean
+    seniority?: boolean
+    experience?: boolean
+    skills?: boolean
+    optionalskills?: boolean
+    githubId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["description"]>
+
+  export type DescriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyname?: boolean
+    seniority?: boolean
+    experience?: boolean
+    skills?: boolean
+    optionalskills?: boolean
+    githubId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["description"]>
+
+  export type DescriptionSelectScalar = {
+    id?: boolean
+    companyname?: boolean
+    seniority?: boolean
+    experience?: boolean
+    skills?: boolean
+    optionalskills?: boolean
+    githubId?: boolean
+  }
+
+  export type DescriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "companyname" | "seniority" | "experience" | "skills" | "optionalskills" | "githubId", ExtArgs["result"]["description"]>
+  export type DescriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DescriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DescriptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DescriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Description"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      companyname: string
+      seniority: $Enums.SeniorityLevel
+      experience: number
+      skills: string[]
+      optionalskills: string[]
+      githubId: string
+    }, ExtArgs["result"]["description"]>
+    composites: {}
+  }
+
+  type DescriptionGetPayload<S extends boolean | null | undefined | DescriptionDefaultArgs> = $Result.GetResult<Prisma.$DescriptionPayload, S>
+
+  type DescriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DescriptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DescriptionCountAggregateInputType | true
+    }
+
+  export interface DescriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Description'], meta: { name: 'Description' } }
+    /**
+     * Find zero or one Description that matches the filter.
+     * @param {DescriptionFindUniqueArgs} args - Arguments to find a Description
+     * @example
+     * // Get one Description
+     * const description = await prisma.description.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DescriptionFindUniqueArgs>(args: SelectSubset<T, DescriptionFindUniqueArgs<ExtArgs>>): Prisma__DescriptionClient<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Description that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DescriptionFindUniqueOrThrowArgs} args - Arguments to find a Description
+     * @example
+     * // Get one Description
+     * const description = await prisma.description.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DescriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, DescriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DescriptionClient<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Description that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DescriptionFindFirstArgs} args - Arguments to find a Description
+     * @example
+     * // Get one Description
+     * const description = await prisma.description.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DescriptionFindFirstArgs>(args?: SelectSubset<T, DescriptionFindFirstArgs<ExtArgs>>): Prisma__DescriptionClient<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Description that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DescriptionFindFirstOrThrowArgs} args - Arguments to find a Description
+     * @example
+     * // Get one Description
+     * const description = await prisma.description.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DescriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, DescriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__DescriptionClient<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Descriptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DescriptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Descriptions
+     * const descriptions = await prisma.description.findMany()
+     * 
+     * // Get first 10 Descriptions
+     * const descriptions = await prisma.description.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const descriptionWithIdOnly = await prisma.description.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DescriptionFindManyArgs>(args?: SelectSubset<T, DescriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Description.
+     * @param {DescriptionCreateArgs} args - Arguments to create a Description.
+     * @example
+     * // Create one Description
+     * const Description = await prisma.description.create({
+     *   data: {
+     *     // ... data to create a Description
+     *   }
+     * })
+     * 
+     */
+    create<T extends DescriptionCreateArgs>(args: SelectSubset<T, DescriptionCreateArgs<ExtArgs>>): Prisma__DescriptionClient<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Descriptions.
+     * @param {DescriptionCreateManyArgs} args - Arguments to create many Descriptions.
+     * @example
+     * // Create many Descriptions
+     * const description = await prisma.description.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DescriptionCreateManyArgs>(args?: SelectSubset<T, DescriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Descriptions and returns the data saved in the database.
+     * @param {DescriptionCreateManyAndReturnArgs} args - Arguments to create many Descriptions.
+     * @example
+     * // Create many Descriptions
+     * const description = await prisma.description.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Descriptions and only return the `id`
+     * const descriptionWithIdOnly = await prisma.description.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DescriptionCreateManyAndReturnArgs>(args?: SelectSubset<T, DescriptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Description.
+     * @param {DescriptionDeleteArgs} args - Arguments to delete one Description.
+     * @example
+     * // Delete one Description
+     * const Description = await prisma.description.delete({
+     *   where: {
+     *     // ... filter to delete one Description
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DescriptionDeleteArgs>(args: SelectSubset<T, DescriptionDeleteArgs<ExtArgs>>): Prisma__DescriptionClient<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Description.
+     * @param {DescriptionUpdateArgs} args - Arguments to update one Description.
+     * @example
+     * // Update one Description
+     * const description = await prisma.description.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DescriptionUpdateArgs>(args: SelectSubset<T, DescriptionUpdateArgs<ExtArgs>>): Prisma__DescriptionClient<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Descriptions.
+     * @param {DescriptionDeleteManyArgs} args - Arguments to filter Descriptions to delete.
+     * @example
+     * // Delete a few Descriptions
+     * const { count } = await prisma.description.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DescriptionDeleteManyArgs>(args?: SelectSubset<T, DescriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Descriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DescriptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Descriptions
+     * const description = await prisma.description.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DescriptionUpdateManyArgs>(args: SelectSubset<T, DescriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Descriptions and returns the data updated in the database.
+     * @param {DescriptionUpdateManyAndReturnArgs} args - Arguments to update many Descriptions.
+     * @example
+     * // Update many Descriptions
+     * const description = await prisma.description.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Descriptions and only return the `id`
+     * const descriptionWithIdOnly = await prisma.description.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DescriptionUpdateManyAndReturnArgs>(args: SelectSubset<T, DescriptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Description.
+     * @param {DescriptionUpsertArgs} args - Arguments to update or create a Description.
+     * @example
+     * // Update or create a Description
+     * const description = await prisma.description.upsert({
+     *   create: {
+     *     // ... data to create a Description
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Description we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DescriptionUpsertArgs>(args: SelectSubset<T, DescriptionUpsertArgs<ExtArgs>>): Prisma__DescriptionClient<$Result.GetResult<Prisma.$DescriptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Descriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DescriptionCountArgs} args - Arguments to filter Descriptions to count.
+     * @example
+     * // Count the number of Descriptions
+     * const count = await prisma.description.count({
+     *   where: {
+     *     // ... the filter for the Descriptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends DescriptionCountArgs>(
+      args?: Subset<T, DescriptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DescriptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Description.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DescriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DescriptionAggregateArgs>(args: Subset<T, DescriptionAggregateArgs>): Prisma.PrismaPromise<GetDescriptionAggregateType<T>>
+
+    /**
+     * Group by Description.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DescriptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DescriptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DescriptionGroupByArgs['orderBy'] }
+        : { orderBy?: DescriptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DescriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDescriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Description model
+   */
+  readonly fields: DescriptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Description.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DescriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Description model
+   */
+  interface DescriptionFieldRefs {
+    readonly id: FieldRef<"Description", 'String'>
+    readonly companyname: FieldRef<"Description", 'String'>
+    readonly seniority: FieldRef<"Description", 'SeniorityLevel'>
+    readonly experience: FieldRef<"Description", 'Int'>
+    readonly skills: FieldRef<"Description", 'String[]'>
+    readonly optionalskills: FieldRef<"Description", 'String[]'>
+    readonly githubId: FieldRef<"Description", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Description findUnique
+   */
+  export type DescriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Description to fetch.
+     */
+    where: DescriptionWhereUniqueInput
+  }
+
+  /**
+   * Description findUniqueOrThrow
+   */
+  export type DescriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Description to fetch.
+     */
+    where: DescriptionWhereUniqueInput
+  }
+
+  /**
+   * Description findFirst
+   */
+  export type DescriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Description to fetch.
+     */
+    where?: DescriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Descriptions to fetch.
+     */
+    orderBy?: DescriptionOrderByWithRelationInput | DescriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Descriptions.
+     */
+    cursor?: DescriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Descriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Descriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Descriptions.
+     */
+    distinct?: DescriptionScalarFieldEnum | DescriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Description findFirstOrThrow
+   */
+  export type DescriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Description to fetch.
+     */
+    where?: DescriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Descriptions to fetch.
+     */
+    orderBy?: DescriptionOrderByWithRelationInput | DescriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Descriptions.
+     */
+    cursor?: DescriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Descriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Descriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Descriptions.
+     */
+    distinct?: DescriptionScalarFieldEnum | DescriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Description findMany
+   */
+  export type DescriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Descriptions to fetch.
+     */
+    where?: DescriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Descriptions to fetch.
+     */
+    orderBy?: DescriptionOrderByWithRelationInput | DescriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Descriptions.
+     */
+    cursor?: DescriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Descriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Descriptions.
+     */
+    skip?: number
+    distinct?: DescriptionScalarFieldEnum | DescriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Description create
+   */
+  export type DescriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Description.
+     */
+    data: XOR<DescriptionCreateInput, DescriptionUncheckedCreateInput>
+  }
+
+  /**
+   * Description createMany
+   */
+  export type DescriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Descriptions.
+     */
+    data: DescriptionCreateManyInput | DescriptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Description createManyAndReturn
+   */
+  export type DescriptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Descriptions.
+     */
+    data: DescriptionCreateManyInput | DescriptionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Description update
+   */
+  export type DescriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Description.
+     */
+    data: XOR<DescriptionUpdateInput, DescriptionUncheckedUpdateInput>
+    /**
+     * Choose, which Description to update.
+     */
+    where: DescriptionWhereUniqueInput
+  }
+
+  /**
+   * Description updateMany
+   */
+  export type DescriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Descriptions.
+     */
+    data: XOR<DescriptionUpdateManyMutationInput, DescriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Descriptions to update
+     */
+    where?: DescriptionWhereInput
+    /**
+     * Limit how many Descriptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Description updateManyAndReturn
+   */
+  export type DescriptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * The data used to update Descriptions.
+     */
+    data: XOR<DescriptionUpdateManyMutationInput, DescriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Descriptions to update
+     */
+    where?: DescriptionWhereInput
+    /**
+     * Limit how many Descriptions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Description upsert
+   */
+  export type DescriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Description to update in case it exists.
+     */
+    where: DescriptionWhereUniqueInput
+    /**
+     * In case the Description found by the `where` argument doesn't exist, create a new Description with this data.
+     */
+    create: XOR<DescriptionCreateInput, DescriptionUncheckedCreateInput>
+    /**
+     * In case the Description was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DescriptionUpdateInput, DescriptionUncheckedUpdateInput>
+  }
+
+  /**
+   * Description delete
+   */
+  export type DescriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
+    /**
+     * Filter which Description to delete.
+     */
+    where: DescriptionWhereUniqueInput
+  }
+
+  /**
+   * Description deleteMany
+   */
+  export type DescriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Descriptions to delete
+     */
+    where?: DescriptionWhereInput
+    /**
+     * Limit how many Descriptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Description without action
+   */
+  export type DescriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Description
+     */
+    select?: DescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Description
+     */
+    omit?: DescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DescriptionInclude<ExtArgs> | null
   }
 
 
@@ -1929,6 +3253,19 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const DescriptionScalarFieldEnum: {
+    id: 'id',
+    companyname: 'companyname',
+    seniority: 'seniority',
+    experience: 'experience',
+    skills: 'skills',
+    optionalskills: 'optionalskills',
+    githubId: 'githubId'
+  };
+
+  export type DescriptionScalarFieldEnum = (typeof DescriptionScalarFieldEnum)[keyof typeof DescriptionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1989,6 +3326,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'SeniorityLevel'
+   */
+  export type EnumSeniorityLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeniorityLevel'>
+    
+
+
+  /**
+   * Reference to a field of type 'SeniorityLevel[]'
+   */
+  export type ListEnumSeniorityLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeniorityLevel[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1999,6 +3350,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -2017,6 +3382,7 @@ export namespace Prisma {
     accessToken?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    description?: DescriptionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -2028,6 +3394,7 @@ export namespace Prisma {
     accessToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    description?: DescriptionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -2042,6 +3409,7 @@ export namespace Prisma {
     accessToken?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    description?: DescriptionListRelationFilter
   }, "id" | "githubId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -2072,6 +3440,73 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type DescriptionWhereInput = {
+    AND?: DescriptionWhereInput | DescriptionWhereInput[]
+    OR?: DescriptionWhereInput[]
+    NOT?: DescriptionWhereInput | DescriptionWhereInput[]
+    id?: StringFilter<"Description"> | string
+    companyname?: StringFilter<"Description"> | string
+    seniority?: EnumSeniorityLevelFilter<"Description"> | $Enums.SeniorityLevel
+    experience?: IntFilter<"Description"> | number
+    skills?: StringNullableListFilter<"Description">
+    optionalskills?: StringNullableListFilter<"Description">
+    githubId?: StringFilter<"Description"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DescriptionOrderByWithRelationInput = {
+    id?: SortOrder
+    companyname?: SortOrder
+    seniority?: SortOrder
+    experience?: SortOrder
+    skills?: SortOrder
+    optionalskills?: SortOrder
+    githubId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DescriptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    githubId?: string
+    AND?: DescriptionWhereInput | DescriptionWhereInput[]
+    OR?: DescriptionWhereInput[]
+    NOT?: DescriptionWhereInput | DescriptionWhereInput[]
+    companyname?: StringFilter<"Description"> | string
+    seniority?: EnumSeniorityLevelFilter<"Description"> | $Enums.SeniorityLevel
+    experience?: IntFilter<"Description"> | number
+    skills?: StringNullableListFilter<"Description">
+    optionalskills?: StringNullableListFilter<"Description">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "githubId">
+
+  export type DescriptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    companyname?: SortOrder
+    seniority?: SortOrder
+    experience?: SortOrder
+    skills?: SortOrder
+    optionalskills?: SortOrder
+    githubId?: SortOrder
+    _count?: DescriptionCountOrderByAggregateInput
+    _avg?: DescriptionAvgOrderByAggregateInput
+    _max?: DescriptionMaxOrderByAggregateInput
+    _min?: DescriptionMinOrderByAggregateInput
+    _sum?: DescriptionSumOrderByAggregateInput
+  }
+
+  export type DescriptionScalarWhereWithAggregatesInput = {
+    AND?: DescriptionScalarWhereWithAggregatesInput | DescriptionScalarWhereWithAggregatesInput[]
+    OR?: DescriptionScalarWhereWithAggregatesInput[]
+    NOT?: DescriptionScalarWhereWithAggregatesInput | DescriptionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Description"> | string
+    companyname?: StringWithAggregatesFilter<"Description"> | string
+    seniority?: EnumSeniorityLevelWithAggregatesFilter<"Description"> | $Enums.SeniorityLevel
+    experience?: IntWithAggregatesFilter<"Description"> | number
+    skills?: StringNullableListFilter<"Description">
+    optionalskills?: StringNullableListFilter<"Description">
+    githubId?: StringWithAggregatesFilter<"Description"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     githubId: string
@@ -2081,6 +3516,7 @@ export namespace Prisma {
     accessToken: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: DescriptionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -2092,6 +3528,7 @@ export namespace Prisma {
     accessToken: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    description?: DescriptionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -2103,6 +3540,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: DescriptionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -2114,6 +3552,7 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: DescriptionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -2147,6 +3586,75 @@ export namespace Prisma {
     accessToken?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DescriptionCreateInput = {
+    id?: string
+    companyname: string
+    seniority: $Enums.SeniorityLevel
+    experience: number
+    skills?: DescriptionCreateskillsInput | string[]
+    optionalskills?: DescriptionCreateoptionalskillsInput | string[]
+    user: UserCreateNestedOneWithoutDescriptionInput
+  }
+
+  export type DescriptionUncheckedCreateInput = {
+    id?: string
+    companyname: string
+    seniority: $Enums.SeniorityLevel
+    experience: number
+    skills?: DescriptionCreateskillsInput | string[]
+    optionalskills?: DescriptionCreateoptionalskillsInput | string[]
+    githubId: string
+  }
+
+  export type DescriptionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    seniority?: EnumSeniorityLevelFieldUpdateOperationsInput | $Enums.SeniorityLevel
+    experience?: IntFieldUpdateOperationsInput | number
+    skills?: DescriptionUpdateskillsInput | string[]
+    optionalskills?: DescriptionUpdateoptionalskillsInput | string[]
+    user?: UserUpdateOneRequiredWithoutDescriptionNestedInput
+  }
+
+  export type DescriptionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    seniority?: EnumSeniorityLevelFieldUpdateOperationsInput | $Enums.SeniorityLevel
+    experience?: IntFieldUpdateOperationsInput | number
+    skills?: DescriptionUpdateskillsInput | string[]
+    optionalskills?: DescriptionUpdateoptionalskillsInput | string[]
+    githubId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DescriptionCreateManyInput = {
+    id?: string
+    companyname: string
+    seniority: $Enums.SeniorityLevel
+    experience: number
+    skills?: DescriptionCreateskillsInput | string[]
+    optionalskills?: DescriptionCreateoptionalskillsInput | string[]
+    githubId: string
+  }
+
+  export type DescriptionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    seniority?: EnumSeniorityLevelFieldUpdateOperationsInput | $Enums.SeniorityLevel
+    experience?: IntFieldUpdateOperationsInput | number
+    skills?: DescriptionUpdateskillsInput | string[]
+    optionalskills?: DescriptionUpdateoptionalskillsInput | string[]
+  }
+
+  export type DescriptionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    seniority?: EnumSeniorityLevelFieldUpdateOperationsInput | $Enums.SeniorityLevel
+    experience?: IntFieldUpdateOperationsInput | number
+    skills?: DescriptionUpdateskillsInput | string[]
+    optionalskills?: DescriptionUpdateoptionalskillsInput | string[]
+    githubId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -2190,9 +3698,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DescriptionListRelationFilter = {
+    every?: DescriptionWhereInput
+    some?: DescriptionWhereInput
+    none?: DescriptionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type DescriptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -2278,6 +3796,111 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumSeniorityLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeniorityLevel | EnumSeniorityLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.SeniorityLevel[] | ListEnumSeniorityLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeniorityLevel[] | ListEnumSeniorityLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeniorityLevelFilter<$PrismaModel> | $Enums.SeniorityLevel
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type DescriptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    companyname?: SortOrder
+    seniority?: SortOrder
+    experience?: SortOrder
+    skills?: SortOrder
+    optionalskills?: SortOrder
+    githubId?: SortOrder
+  }
+
+  export type DescriptionAvgOrderByAggregateInput = {
+    experience?: SortOrder
+  }
+
+  export type DescriptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    companyname?: SortOrder
+    seniority?: SortOrder
+    experience?: SortOrder
+    githubId?: SortOrder
+  }
+
+  export type DescriptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    companyname?: SortOrder
+    seniority?: SortOrder
+    experience?: SortOrder
+    githubId?: SortOrder
+  }
+
+  export type DescriptionSumOrderByAggregateInput = {
+    experience?: SortOrder
+  }
+
+  export type EnumSeniorityLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeniorityLevel | EnumSeniorityLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.SeniorityLevel[] | ListEnumSeniorityLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeniorityLevel[] | ListEnumSeniorityLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeniorityLevelWithAggregatesFilter<$PrismaModel> | $Enums.SeniorityLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSeniorityLevelFilter<$PrismaModel>
+    _max?: NestedEnumSeniorityLevelFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DescriptionCreateNestedManyWithoutUserInput = {
+    create?: XOR<DescriptionCreateWithoutUserInput, DescriptionUncheckedCreateWithoutUserInput> | DescriptionCreateWithoutUserInput[] | DescriptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DescriptionCreateOrConnectWithoutUserInput | DescriptionCreateOrConnectWithoutUserInput[]
+    createMany?: DescriptionCreateManyUserInputEnvelope
+    connect?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+  }
+
+  export type DescriptionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DescriptionCreateWithoutUserInput, DescriptionUncheckedCreateWithoutUserInput> | DescriptionCreateWithoutUserInput[] | DescriptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DescriptionCreateOrConnectWithoutUserInput | DescriptionCreateOrConnectWithoutUserInput[]
+    createMany?: DescriptionCreateManyUserInputEnvelope
+    connect?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2288,6 +3911,78 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type DescriptionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DescriptionCreateWithoutUserInput, DescriptionUncheckedCreateWithoutUserInput> | DescriptionCreateWithoutUserInput[] | DescriptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DescriptionCreateOrConnectWithoutUserInput | DescriptionCreateOrConnectWithoutUserInput[]
+    upsert?: DescriptionUpsertWithWhereUniqueWithoutUserInput | DescriptionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DescriptionCreateManyUserInputEnvelope
+    set?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+    disconnect?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+    delete?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+    connect?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+    update?: DescriptionUpdateWithWhereUniqueWithoutUserInput | DescriptionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DescriptionUpdateManyWithWhereWithoutUserInput | DescriptionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DescriptionScalarWhereInput | DescriptionScalarWhereInput[]
+  }
+
+  export type DescriptionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DescriptionCreateWithoutUserInput, DescriptionUncheckedCreateWithoutUserInput> | DescriptionCreateWithoutUserInput[] | DescriptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DescriptionCreateOrConnectWithoutUserInput | DescriptionCreateOrConnectWithoutUserInput[]
+    upsert?: DescriptionUpsertWithWhereUniqueWithoutUserInput | DescriptionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DescriptionCreateManyUserInputEnvelope
+    set?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+    disconnect?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+    delete?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+    connect?: DescriptionWhereUniqueInput | DescriptionWhereUniqueInput[]
+    update?: DescriptionUpdateWithWhereUniqueWithoutUserInput | DescriptionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DescriptionUpdateManyWithWhereWithoutUserInput | DescriptionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DescriptionScalarWhereInput | DescriptionScalarWhereInput[]
+  }
+
+  export type DescriptionCreateskillsInput = {
+    set: string[]
+  }
+
+  export type DescriptionCreateoptionalskillsInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutDescriptionInput = {
+    create?: XOR<UserCreateWithoutDescriptionInput, UserUncheckedCreateWithoutDescriptionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDescriptionInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumSeniorityLevelFieldUpdateOperationsInput = {
+    set?: $Enums.SeniorityLevel
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type DescriptionUpdateskillsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DescriptionUpdateoptionalskillsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutDescriptionNestedInput = {
+    create?: XOR<UserCreateWithoutDescriptionInput, UserUncheckedCreateWithoutDescriptionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDescriptionInput
+    upsert?: UserUpsertWithoutDescriptionInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDescriptionInput, UserUpdateWithoutDescriptionInput>, UserUncheckedUpdateWithoutDescriptionInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2397,6 +4092,203 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSeniorityLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeniorityLevel | EnumSeniorityLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.SeniorityLevel[] | ListEnumSeniorityLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeniorityLevel[] | ListEnumSeniorityLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeniorityLevelFilter<$PrismaModel> | $Enums.SeniorityLevel
+  }
+
+  export type NestedEnumSeniorityLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeniorityLevel | EnumSeniorityLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.SeniorityLevel[] | ListEnumSeniorityLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeniorityLevel[] | ListEnumSeniorityLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeniorityLevelWithAggregatesFilter<$PrismaModel> | $Enums.SeniorityLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSeniorityLevelFilter<$PrismaModel>
+    _max?: NestedEnumSeniorityLevelFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type DescriptionCreateWithoutUserInput = {
+    id?: string
+    companyname: string
+    seniority: $Enums.SeniorityLevel
+    experience: number
+    skills?: DescriptionCreateskillsInput | string[]
+    optionalskills?: DescriptionCreateoptionalskillsInput | string[]
+  }
+
+  export type DescriptionUncheckedCreateWithoutUserInput = {
+    id?: string
+    companyname: string
+    seniority: $Enums.SeniorityLevel
+    experience: number
+    skills?: DescriptionCreateskillsInput | string[]
+    optionalskills?: DescriptionCreateoptionalskillsInput | string[]
+  }
+
+  export type DescriptionCreateOrConnectWithoutUserInput = {
+    where: DescriptionWhereUniqueInput
+    create: XOR<DescriptionCreateWithoutUserInput, DescriptionUncheckedCreateWithoutUserInput>
+  }
+
+  export type DescriptionCreateManyUserInputEnvelope = {
+    data: DescriptionCreateManyUserInput | DescriptionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DescriptionUpsertWithWhereUniqueWithoutUserInput = {
+    where: DescriptionWhereUniqueInput
+    update: XOR<DescriptionUpdateWithoutUserInput, DescriptionUncheckedUpdateWithoutUserInput>
+    create: XOR<DescriptionCreateWithoutUserInput, DescriptionUncheckedCreateWithoutUserInput>
+  }
+
+  export type DescriptionUpdateWithWhereUniqueWithoutUserInput = {
+    where: DescriptionWhereUniqueInput
+    data: XOR<DescriptionUpdateWithoutUserInput, DescriptionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DescriptionUpdateManyWithWhereWithoutUserInput = {
+    where: DescriptionScalarWhereInput
+    data: XOR<DescriptionUpdateManyMutationInput, DescriptionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DescriptionScalarWhereInput = {
+    AND?: DescriptionScalarWhereInput | DescriptionScalarWhereInput[]
+    OR?: DescriptionScalarWhereInput[]
+    NOT?: DescriptionScalarWhereInput | DescriptionScalarWhereInput[]
+    id?: StringFilter<"Description"> | string
+    companyname?: StringFilter<"Description"> | string
+    seniority?: EnumSeniorityLevelFilter<"Description"> | $Enums.SeniorityLevel
+    experience?: IntFilter<"Description"> | number
+    skills?: StringNullableListFilter<"Description">
+    optionalskills?: StringNullableListFilter<"Description">
+    githubId?: StringFilter<"Description"> | string
+  }
+
+  export type UserCreateWithoutDescriptionInput = {
+    id?: string
+    githubId: string
+    username: string
+    email?: string | null
+    avatarUrl?: string | null
+    accessToken: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutDescriptionInput = {
+    id?: string
+    githubId: string
+    username: string
+    email?: string | null
+    avatarUrl?: string | null
+    accessToken: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutDescriptionInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDescriptionInput, UserUncheckedCreateWithoutDescriptionInput>
+  }
+
+  export type UserUpsertWithoutDescriptionInput = {
+    update: XOR<UserUpdateWithoutDescriptionInput, UserUncheckedUpdateWithoutDescriptionInput>
+    create: XOR<UserCreateWithoutDescriptionInput, UserUncheckedCreateWithoutDescriptionInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDescriptionInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDescriptionInput, UserUncheckedUpdateWithoutDescriptionInput>
+  }
+
+  export type UserUpdateWithoutDescriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    githubId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutDescriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    githubId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    accessToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DescriptionCreateManyUserInput = {
+    id?: string
+    companyname: string
+    seniority: $Enums.SeniorityLevel
+    experience: number
+    skills?: DescriptionCreateskillsInput | string[]
+    optionalskills?: DescriptionCreateoptionalskillsInput | string[]
+  }
+
+  export type DescriptionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    seniority?: EnumSeniorityLevelFieldUpdateOperationsInput | $Enums.SeniorityLevel
+    experience?: IntFieldUpdateOperationsInput | number
+    skills?: DescriptionUpdateskillsInput | string[]
+    optionalskills?: DescriptionUpdateoptionalskillsInput | string[]
+  }
+
+  export type DescriptionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    seniority?: EnumSeniorityLevelFieldUpdateOperationsInput | $Enums.SeniorityLevel
+    experience?: IntFieldUpdateOperationsInput | number
+    skills?: DescriptionUpdateskillsInput | string[]
+    optionalskills?: DescriptionUpdateoptionalskillsInput | string[]
+  }
+
+  export type DescriptionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    seniority?: EnumSeniorityLevelFieldUpdateOperationsInput | $Enums.SeniorityLevel
+    experience?: IntFieldUpdateOperationsInput | number
+    skills?: DescriptionUpdateskillsInput | string[]
+    optionalskills?: DescriptionUpdateoptionalskillsInput | string[]
   }
 
 

@@ -15,12 +15,30 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(cuid())
-  githubId    String   @unique
+  id          String        @id @default(cuid())
+  githubId    String        @unique
   username    String
-  email       String?  @unique
+  email       String?       @unique
   avatarUrl   String?
   accessToken String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  description Description[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Description {
+  id             String         @id @default(uuid())
+  companyname    String
+  seniority      SeniorityLevel
+  experience     Int
+  skills         String[]
+  optionalskills String[]
+  githubId       String         @unique
+  user           User           @relation(fields: [githubId], references: [githubId])
+}
+
+enum SeniorityLevel {
+  SENIOR
+  MID
+  JUNIOR
 }

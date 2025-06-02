@@ -131,6 +131,16 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DescriptionScalarFieldEnum = {
+  id: 'id',
+  companyname: 'companyname',
+  seniority: 'seniority',
+  experience: 'experience',
+  skills: 'skills',
+  optionalskills: 'optionalskills',
+  githubId: 'githubId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -145,10 +155,15 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.SeniorityLevel = exports.$Enums.SeniorityLevel = {
+  SENIOR: 'SENIOR',
+  MID: 'MID',
+  JUNIOR: 'JUNIOR'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Description: 'Description'
 };
 
 /**

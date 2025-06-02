@@ -11,6 +11,7 @@ import limiter from "./config/ratelimiter/ratelimiter";
 import { errorMiddleware } from "./middleware/error/error.middleware";
 import indexRouter from "./routes";
 import passport from "passport";
+import { HttpErrorMain } from "./utils/error/httpError";
 const App = express();
 const PgSession = pgSimple(session);
 dotenv.config({path: ".env"});
@@ -70,6 +71,7 @@ App.use((req, res, next) => {
   console.warn(`404 - Not Found: ${req.method} ${req.originalUrl}`);
   res.status(404).render('404');
 });
+
 
 App.use(errorMiddleware);
 export default App;
