@@ -4,14 +4,13 @@ import { User } from "../../config/generated/prisma";
 import { FormValidation } from "./validation/user.validation";
 import { HttpErrorMain } from "../../utils/error/httpError";
 import OpenAI from "openai";
-import { promises } from "dns";
 
 export const userHome = async(req:Request,res:Response):Promise<void> => { 
     const userId = (req.user as User)?.id;
-    const user = await  prismaClient.user.findFirst({where: {id: userId!}})
+    // const user = await  prismaClient.user.findFirst({where: {id: userId!}})
     res.render("userHome.ejs",{
-     username: user?.username,
-     avatar: user?.avatarUrl
+     username:/* user?.username,!*/ "Isicheri",
+     avatar:/* user?.avatarUrl */ null
    });
 }
 
@@ -32,7 +31,7 @@ const AiClient = new OpenAI({
 })
 
 const aiResponse = await AiClient.chat.completions.create({
-  model: "gpt-3.5-turbo",
+  model: "gpt-4o",
   messages: [
     {
       role: "system",
